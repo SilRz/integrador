@@ -12,13 +12,14 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import java.sql.ResultSet;
 
+
 /**
  *
  * @author silvi
  */
 public class ClaseOradores {
-     int codigo;
-   String nombreOradores,apellidoOradores,ciudadOradores,edadOradores;
+     int codigo,edadOradores;
+   String nombreOradores,apellidoOradores,ciudadOradores;
 
     public int getCodigo() {
         return codigo;
@@ -28,11 +29,11 @@ public class ClaseOradores {
         this.codigo = codigo;
     }
 
-    public String getEdadOradores() {
+    public int getEdadOradores() {
         return edadOradores;
     }
 
-    public void setEdadOradores(String edadOradores) {
+    public void setEdadOradores(int edadOradores) {
         this.edadOradores = edadOradores;
     }
 
@@ -59,12 +60,12 @@ public class ClaseOradores {
     public void setCiudadOradores(String ciudadOradores) {
         this.ciudadOradores = ciudadOradores;
     }
-    public void InsertarOrador(JTextField paraNombre, JTextField paraApellido,JTextField paraEdad, JTextField paraCiudad){
+    public void InsertarOrador(JTextField paramNombre, JTextField paramApellido,JTextField paramEdad, JTextField paramCiudad){
          
-        setNombreOradores(paraNombre.getText());
-        setApellidoOradores(paraApellido.getText());
-        setEdadOradores(paraEdad.getText());
-        setCiudadOradores(paraCiudad.getText());
+        setNombreOradores(paramNombre.getText());
+        setApellidoOradores(paramApellido.getText());
+        setEdadOradores(Integer.parseInt(paramEdad.getText()));
+        setCiudadOradores(paramCiudad.getText());
         
         Conexion objetoConexion = new Conexion();
         
@@ -76,7 +77,7 @@ public class ClaseOradores {
             
             cs.setString(1, getNombreOradores());
             cs.setString(2, getApellidoOradores());
-            cs.setString(3, getEdadOradores());
+            cs.setInt(3, getEdadOradores());
             cs.setString(4, getCiudadOradores());
             
             cs.execute();
@@ -159,4 +160,38 @@ public class ClaseOradores {
          JOptionPane.showMessageDialog(null,"Error de selección, error: " +e.toString());
         }
     }
+    
+    public void ModificarOradores(JTextField paramCodigo,JTextField paramNombre,JTextField paramApellido,JTextField paramEdad,JTextField paramCiudad){
+        
+        setCodigo(Integer.parseInt(paramCodigo.getText()));
+        setNombreOradores(paramNombre.getText());
+        setApellidoOradores(paramApellido.getText());
+        setEdadOradores(Integer.parseInt(paramEdad.getText()));
+        setCiudadOradores(paramCiudad.getText());
+        
+        Conexion objetoConexion = new Conexion();
+        
+        String consulta = "UPDATE oradores SET oradores.nombre=?,oradores.apellido=?,oradores.edad=?,oradores.ciudad=? WHERE oradores.id=?";
+         
+        try{
+            
+             CallableStatement cs= objetoConexion.getConnection().prepareCall(consulta);
+             
+             cs.setString(1, getNombreOradores());
+             cs.setString(2, getApellidoOradores());
+             cs.setInt(3, getEdadOradores());
+             cs.setString(4, getCiudadOradores());
+             cs.setInt(5,getCodigo());
+             
+             cs.execute();
+             
+             JOptionPane.showMessageDialog(null,"Modificación exitosa.");
+            
+        }catch(Exception e){
+             JOptionPane.showMessageDialog(null,"No se modifico, error: " + e.toString());
+        
+        
+        
+    }
+}
 }

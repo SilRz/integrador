@@ -232,7 +232,9 @@ public class FormOradores extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnModifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifActionPerformed
-        // TODO add your handling code here:
+        ClaseOradores objetOrador = new ClaseOradores();
+       objetOrador.ModificarOradores(txtId, txtNombre, txtApellido, txtEdad, txtCiudad);
+       objetOrador.MostrarOrador(tablaOr);
     }//GEN-LAST:event_btnModifActionPerformed
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
