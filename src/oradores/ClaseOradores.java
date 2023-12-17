@@ -2,8 +2,14 @@
 package oradores;
 
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Statement;
 import java.sql.CallableStatement;
+import java.sql.Connection;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -11,6 +17,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import java.sql.ResultSet;
+import java.sql.*;
 
 
 /**
@@ -82,6 +89,7 @@ public class ClaseOradores {
             
             cs.execute();
             JOptionPane.showMessageDialog(null,"Datos insertados correctamente.");
+            CrearXML();
             
         }catch(Exception e){
             
@@ -186,6 +194,7 @@ public class ClaseOradores {
              cs.execute();
              
              JOptionPane.showMessageDialog(null,"Modificación exitosa.");
+             CrearXML();
             
         }catch(Exception e){
              JOptionPane.showMessageDialog(null,"No se pudo realizar la modificación, error: " + e.toString());
@@ -208,12 +217,57 @@ public class ClaseOradores {
             cs.execute();
             
             JOptionPane.showMessageDialog(null,"Se ha eliminado correctamente.");
+            CrearXML();
             
         
             
         }catch(Exception e){
             
             JOptionPane.showMessageDialog(null,"No se pudo eliminar, error: " + e.toString());
-}
-}
-}
+    }
+    }   
+        
+        public void CrearXML() throws IOException, SQLException, java.sql.SQLException {
+            PreparedStatement pst;
+           ResultSet rs;
+           Connection con = null;
+             
+              String filePath = "C:\\Users\\silvi\\OneDrive\\Escritorio\\Mi primer proyecto Java\\oradores.xml";
+              
+               Path path = Paths.get(filePath);
+               Files.delete(path);
+               
+               pst = con.prepareStatement("Select * from users");
+               rs = pst.executeQuery();
+               
+               String line = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"; 
+                FileWriter cb = new FileWriter(filePath, true);
+                cb.write(line);
+                cb.close();
+     
+                line = "<oradores>"; //abro el XML
+                FileWriter ap = new FileWriter(filePath, true);
+                ap.write(line);
+                ap.close();
+             
+            while (rs.next()) {
+          
+            line = "<orador><nombre>" + rs.getString("Nombre") + "</nombre><apelldido>" + rs.getString("Apellido") + "</apellido><edad>"
+                    + rs.getString("Edad") + "</edad><ciudad>" 
+                    + rs.getString("Ciudad") + "</ciudad></orador>";
+           
+            FileWriter fw = new FileWriter(filePath, true);
+            fw.write(line);
+            fw.close();
+            }
+         
+            line = "</oradores>";
+          FileWriter fo = new FileWriter(filePath, true);
+          fo.write(line);
+          fo.close();
+         } 
+        
+        
+    }
+
+    
