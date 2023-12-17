@@ -228,11 +228,11 @@ public class ClaseOradores {
     }   
         
         public void CrearXML() throws IOException, SQLException, java.sql.SQLException {
-            PreparedStatement pst;
+           PreparedStatement pst;
            ResultSet rs;
            Connection con = null;
              
-              String filePath = "C:\\Users\\silvi\\OneDrive\\Escritorio\\Mi primer proyecto Java\\oradores.xml";
+              String filePath = "C:\\Users\\silvi\\OneDrive\\Escritorio\\Mi primer proyecto Java\\Oradores\\oradores.xml";
               
                Path path = Paths.get(filePath);
                Files.delete(path);
