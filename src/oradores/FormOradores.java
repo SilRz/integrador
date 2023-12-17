@@ -246,7 +246,9 @@ public class FormOradores extends javax.swing.JFrame {
     }//GEN-LAST:event_txtEdadActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-        // TODO add your handling code here:
+        ClaseOradores objetOrador = new ClaseOradores();
+       objetOrador.EliminarOrador(txtId);
+       objetOrador.MostrarOrador(tablaOr);
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked

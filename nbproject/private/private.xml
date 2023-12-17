@@ -3,8 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/silvi/OneDrive/Escritorio/Mi%20primer%20proyecto%20Java/Oradores/src/st.java</file>
-            <file>file:/C:/Users/silvi/OneDrive/Escritorio/Mi%20primer%20proyecto%20Java/Oradores/src/Oradores.java</file>
+            <file>file:/C:/Users/silvi/OneDrive/Escritorio/Mi%20primer%20proyecto%20Java/Oradores/src/oradores/Conexion.java</file>
+            <file>file:/C:/Users/silvi/OneDrive/Escritorio/Mi%20primer%20proyecto%20Java/Oradores/src/oradores/inicio.java</file>
+            <file>file:/C:/Users/silvi/OneDrive/Escritorio/Mi%20primer%20proyecto%20Java/Oradores/src/oradores/FormOradores.java</file>
+            <file>file:/C:/Users/silvi/OneDrive/Escritorio/Mi%20primer%20proyecto%20Java/Oradores/src/oradores/ClaseOradores.java</file>
         </group>
     </open-files>
 </project-private>

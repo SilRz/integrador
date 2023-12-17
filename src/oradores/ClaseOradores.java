@@ -188,10 +188,32 @@ public class ClaseOradores {
              JOptionPane.showMessageDialog(null,"Modificación exitosa.");
             
         }catch(Exception e){
-             JOptionPane.showMessageDialog(null,"No se modifico, error: " + e.toString());
+             JOptionPane.showMessageDialog(null,"No se pudo realizar la modificación, error: " + e.toString());
         
         
         
     }
+    }
+        
+    public void EliminarOrador(JTextField paramCodigo){
+        
+        setCodigo(Integer.parseInt(paramCodigo.getText()));
+        Conexion objetoConexion = new Conexion();
+        String consulta = "DELETE FROM oradores WHERE oradores.id=?;";
+        
+        try{
+            
+            CallableStatement cs= objetoConexion.getConnection().prepareCall(consulta);
+            cs.setInt(1, codigo);
+            cs.execute();
+            
+            JOptionPane.showMessageDialog(null,"Se ha eliminado correctamente.");
+            
+        
+            
+        }catch(Exception e){
+            
+            JOptionPane.showMessageDialog(null,"No se pudo eliminar, error: " + e.toString());
+}
 }
 }
