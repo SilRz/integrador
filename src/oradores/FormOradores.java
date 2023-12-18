@@ -1,6 +1,11 @@
 
 package oradores;
 
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author silvi
@@ -233,7 +238,13 @@ public class FormOradores extends javax.swing.JFrame {
 
     private void btnModifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifActionPerformed
         ClaseOradores objetOrador = new ClaseOradores();
-       objetOrador.ModificarOradores(txtId, txtNombre, txtApellido, txtEdad, txtCiudad);
+        try {
+            objetOrador.ModificarOradores(txtId, txtNombre, txtApellido, txtEdad, txtCiudad);
+        } catch (SQLException ex) {
+            Logger.getLogger(FormOradores.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(FormOradores.class.getName()).log(Level.SEVERE, null, ex);
+        }
        objetOrador.MostrarOrador(tablaOr);
     }//GEN-LAST:event_btnModifActionPerformed
 
@@ -247,7 +258,13 @@ public class FormOradores extends javax.swing.JFrame {
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         ClaseOradores objetOrador = new ClaseOradores();
-       objetOrador.EliminarOrador(txtId);
+        try {
+            objetOrador.EliminarOrador(txtId);
+        } catch (IOException ex) {
+            Logger.getLogger(FormOradores.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(FormOradores.class.getName()).log(Level.SEVERE, null, ex);
+        }
        objetOrador.MostrarOrador(tablaOr);
     }//GEN-LAST:event_btnBorrarActionPerformed
 
@@ -257,7 +274,13 @@ public class FormOradores extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
          ClaseOradores objetOrador = new ClaseOradores();
-       objetOrador.InsertarOrador(txtNombre,txtApellido,txtEdad,txtCiudad);
+        try {
+            objetOrador.InsertarOrador(txtNombre,txtApellido,txtEdad,txtCiudad);
+        } catch (SQLException ex) {
+            Logger.getLogger(FormOradores.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(FormOradores.class.getName()).log(Level.SEVERE, null, ex);
+        }
        objetOrador.MostrarOrador(tablaOr);
     }//GEN-LAST:event_btnGuardarActionPerformed
 

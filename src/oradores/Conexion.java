@@ -14,7 +14,7 @@ public class Conexion {
     public Conexion(){
         
         try{
-        Class.forName("com.mysql.jdbc.Driver");
+        Class.forName("com.mysql.cj.jdbc.Driver");
         con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/practico","root","");
         
         JOptionPane.showMessageDialog(null,"La conexión se ha realizado con exito. " );

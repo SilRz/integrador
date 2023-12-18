@@ -25,7 +25,7 @@ import java.sql.*;
  * @author silvi
  */
 public class ClaseOradores {
-     int codigo,edadOradores;
+   int codigo,edadOradores;
    String nombreOradores,apellidoOradores,ciudadOradores;
 
     public int getCodigo() {
@@ -67,7 +67,7 @@ public class ClaseOradores {
     public void setCiudadOradores(String ciudadOradores) {
         this.ciudadOradores = ciudadOradores;
     }
-    public void InsertarOrador(JTextField paramNombre, JTextField paramApellido,JTextField paramEdad, JTextField paramCiudad){
+    public void InsertarOrador(JTextField paramNombre, JTextField paramApellido,JTextField paramEdad, JTextField paramCiudad) throws SQLException, IOException{
          
         setNombreOradores(paramNombre.getText());
         setApellidoOradores(paramApellido.getText());
@@ -89,13 +89,13 @@ public class ClaseOradores {
             
             cs.execute();
             JOptionPane.showMessageDialog(null,"Datos insertados correctamente.");
-            CrearXML();
+            
             
         }catch(Exception e){
             
              JOptionPane.showMessageDialog(null,"No se pudo insertar los datos del orador, error:" + e.toString());
         }
-        
+        CrearXML();
     }
     
     public void MostrarOrador(JTable paramTablaTotalOradores){
@@ -169,7 +169,7 @@ public class ClaseOradores {
         }
     }
     
-    public void ModificarOradores(JTextField paramCodigo,JTextField paramNombre,JTextField paramApellido,JTextField paramEdad,JTextField paramCiudad){
+    public void ModificarOradores(JTextField paramCodigo,JTextField paramNombre,JTextField paramApellido,JTextField paramEdad,JTextField paramCiudad) throws SQLException, IOException{
         
         setCodigo(Integer.parseInt(paramCodigo.getText()));
         setNombreOradores(paramNombre.getText());
@@ -194,17 +194,17 @@ public class ClaseOradores {
              cs.execute();
              
              JOptionPane.showMessageDialog(null,"Modificación exitosa.");
-             CrearXML();
+             
             
         }catch(Exception e){
              JOptionPane.showMessageDialog(null,"No se pudo realizar la modificación, error: " + e.toString());
-        
+        CrearXML();
         
         
     }
     }
         
-    public void EliminarOrador(JTextField paramCodigo){
+    public void EliminarOrador(JTextField paramCodigo) throws IOException, SQLException{
         
         setCodigo(Integer.parseInt(paramCodigo.getText()));
         Conexion objetoConexion = new Conexion();
@@ -217,30 +217,43 @@ public class ClaseOradores {
             cs.execute();
             
             JOptionPane.showMessageDialog(null,"Se ha eliminado correctamente.");
-            CrearXML();
+           
             
-        
+          
             
         }catch(Exception e){
             
             JOptionPane.showMessageDialog(null,"No se pudo eliminar, error: " + e.toString());
-    }
+        }
+          CrearXML();
     }   
         
         public void CrearXML() throws IOException, SQLException, java.sql.SQLException {
-           PreparedStatement pst;
-           ResultSet rs;
-           Connection con = null;
+           /*PreparedStatement pst;*/
+           ResultSet rs = null;
+           /*Connection con = null;*/
              
               String filePath = "C:\\Users\\silvi\\OneDrive\\Escritorio\\Mi primer proyecto Java\\Oradores\\oradores.xml";
               
                Path path = Paths.get(filePath);
-               Files.delete(path);
+               String sql="select *from oradores";
+               Statement st = null;
+               /*Files.delete(path);*/
+               Conexion objetoConexion = new Conexion();
                
-               pst = con.prepareStatement("Select * from users");
+               try{
+                   
+                   st=objetoConexion.getConnection().createStatement();
+                   rs= st.executeQuery(sql);
+               
+               /*pst = con.prepareStatement("Select * from oradores");
                rs = pst.executeQuery();
-               
-               String line = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"; 
+               }catch(SQLException e) {
+	         e.printStackTrace();*/
+		
+                
+
+               String line = "<?xml version=\"1.0\"encoding=\"utf-8\"?>"; 
                 FileWriter cb = new FileWriter(filePath, true);
                 cb.write(line);
                 cb.close();
@@ -249,22 +262,33 @@ public class ClaseOradores {
                 FileWriter ap = new FileWriter(filePath, true);
                 ap.write(line);
                 ap.close();
-             
-            while (rs.next()) {
+                 
+               while (rs.next()) {
           
-            line = "<orador><nombre>" + rs.getString("Nombre") + "</nombre><apelldido>" + rs.getString("Apellido") + "</apellido><edad>"
+                 line = "<orador><nombre>" + rs.getString("Nombre") + "</nombre><apelldido>" + rs.getString("Apellido") + "</apellido><edad>"
                     + rs.getString("Edad") + "</edad><ciudad>" 
                     + rs.getString("Ciudad") + "</ciudad></orador>";
            
-            FileWriter fw = new FileWriter(filePath, true);
-            fw.write(line);
-            fw.close();
-            }
+                  FileWriter fw = new FileWriter(filePath, true);
+                  fw.write(line);
+                 fw.close();
+               }  
          
-            line = "</oradores>";
-          FileWriter fo = new FileWriter(filePath, true);
-          fo.write(line);
-          fo.close();
+              line = "</oradores>";
+              FileWriter fo = new FileWriter(filePath, true);
+              fo.write(line);
+              fo.close();
+            }catch(SQLException e1){
+                e1.printStackTrace();
+            }finally{
+                   
+                   if (rs !=null){
+                       rs.close();
+                   }
+                   if(st !=null){
+                       st.close();
+                   }
+               }
          } 
         
         
